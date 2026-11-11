@@ -1,0 +1,53 @@
+name: MCP tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm pack --dry-run
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      HACHIDORI_PATH: ${{ github.workspace }}/upstream/hachidori
+      HACHIDORI_ANKI_PATH: ${{ github.workspace }}/upstream/hachidori-anki
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: bee-san/hachidori
+          ref: e41ff4e3fa57371a8806b5292e000fede2f8fd88
+          path: upstream/hachidori
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: bee-san/hachidori-anki
+          ref: e614794c6739601b9ffc0d9676973aba4adf4b8a
+          path: upstream/hachidori-anki
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.13'
+      - run: npm ci
+      - run: npm ci --prefix upstream/hachidori/test/tooling
+      - run: node upstream/hachidori/test/run.mjs install-chrome
+      - run: npm run test:integration

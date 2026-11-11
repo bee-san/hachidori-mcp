@@ -13,8 +13,8 @@ generated JavaScript in Node.
 
 - Node.js **22.15 or later**.
 - Hachidori with the **`mcp-configuration-v1`** capability. The companion extension
-  change is tracked in [Hachidori #745](https://github.com/bee-san/hachidori/issues/745).
-  Until that change ships, load the extension from its linked implementation PR.
+  change is in [Hachidori PR #746](https://github.com/bee-san/hachidori/pull/746).
+  Until that change ships, load the extension from that PR.
 - [Hachidori Relay](https://github.com/bee-san/hachidori-anki), installed in Anki,
   with Anki and your sharing browser open. The existing relay is sufficient;
   this server does not need a new Anki add-on build or AnkiConnect.

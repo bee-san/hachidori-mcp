@@ -1,0 +1,14 @@
+{
+  "name": "hachidori-mcp",
+  "version": "0.1.0",
+  "description": "Configure Hachidori languages, settings and userscripts from an MCP client",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "bin": { "hachidori-mcp": "src/cli.js" },
+  "files": ["src", "docs", "README.md", "LICENSE"],
+  "engines": { "node": ">=22.15" },
+  "scripts": { "start": "node src/cli.js", "test": "node --test test/*.test.js", "test:integration": "node --test test/integration.mjs", "check": "node --check src/cli.js && node --check src/server.js && node --check src/relay.js && node --check src/hachidori.js" },
+  "dependencies": { "@modelcontextprotocol/server": "2.4.0", "ws": "^8.18.3", "zod": "^4.1.12" },
+  "devDependencies": { "@modelcontextprotocol/client": "2.4.0" },
+  "repository": { "type": "git", "url": "https://github.com/bee-san/hachidori-mcp.git" }
+}

@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: bee-san/hachidori
-          ref: 6b88decbbc4cdd9b26228390a8cdde7f0aabd1a1
+          ref: 01dfa6ce92c190351f27951f8b48f5cd5265785d
           path: upstream/hachidori
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
